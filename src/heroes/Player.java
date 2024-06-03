@@ -1,6 +1,8 @@
 package heroes;
 
-public class Player {
+import dungeons.RoomInterface;
+
+public class Player extends Unit implements RoomInterface {
 
     private int heals;
     private String bag;
@@ -34,5 +36,10 @@ public class Player {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    @Override
+    public void attack() {
+
     }
 }

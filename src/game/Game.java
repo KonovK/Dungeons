@@ -1,10 +1,18 @@
 package game;
 
+import dungeons.Dungeon;
+import dungeons.RoomInterface;
 import random.RandomDigit;
 
 import java.util.Scanner;
 
 public class Game {
+
+    private Dungeon dungeon;
+
+    public Game(int str, int column){
+        this.dungeon = new Dungeon(str,column);
+    }
 
     public static void start(){
         System.out.println("Добро пожаловать в игру Приключения в подземелье!" +
@@ -18,19 +26,20 @@ public class Game {
         System.out.println("Команды: вперед, назад, влево, вправо, состояние, помощь.");
         String s = scanner.nextLine();
         System.out.println("Вы ввели " + s);
-        random();
+        if (s == "вперед"){
+
+        } else if (s == "назад") {
+
+        } else if (s == "влево") {
+
+        } else if (s == "вправо") {
+
+        }
     }
-    public static void random(){
-        int num = RandomDigit.randomizer(1, 3);
-        if (num == 2){
-            System.out.println("Вы нашли сокровища!");
-        }
-        if (num == 3){
-            System.out.println("Вы наткнулись на монстра!");
-        }
-        else {
-            System.out.println("Комната пустая.");
-            motion();
-        }
+    public void info() {
+        dungeon.info();
+    }
+    public int[] creat(){
+        return dungeon.createPlayerPosition();
     }
 }

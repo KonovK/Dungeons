@@ -1,14 +1,15 @@
 package heroes;
 
 import dungeons.RoomInterface;
+import playerPosition.Position;
 
 public class Player extends Unit implements RoomInterface {
 
     private int heals;
     private String bag;
-    private String position;
+    private Position position;
 
-    public Player(int heals, String bag, String position) {
+    public Player(int heals, String bag, Position position) {
         this.heals = heals;
         this.bag = bag;
         this.position = position;
@@ -22,7 +23,7 @@ public class Player extends Unit implements RoomInterface {
         return bag;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
 
@@ -34,7 +35,7 @@ public class Player extends Unit implements RoomInterface {
         this.bag = bag;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 

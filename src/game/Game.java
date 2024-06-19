@@ -27,13 +27,13 @@ public class Game {
         String s = scanner.nextLine();
         System.out.println("Вы ввели " + s);
         if (s == "вперед"){
-
+            Dungeon.forward();
         } else if (s == "назад") {
-
+            Dungeon.back();
         } else if (s == "влево") {
-
+            Dungeon.left();
         } else if (s == "вправо") {
-
+            Dungeon.right();
         }
     }
     public void info() {

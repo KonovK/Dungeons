@@ -9,7 +9,7 @@ import java.util.Random;
 public class Dungeon {
 
     private Room[][] matrix;
-    private Position position;
+    private static Position position;
 
     public Dungeon(int str, int column) {
         this.matrix = new Room[str][column];

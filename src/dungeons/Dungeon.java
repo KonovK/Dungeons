@@ -8,8 +8,9 @@ import java.util.Random;
 
 public class Dungeon {
 
+    private Player player;
     private Room[][] matrix;
-    private static Position position;
+    private Position position;
 
     public Dungeon(int str, int column) {
         this.matrix = new Room[str][column];
@@ -32,23 +33,35 @@ public class Dungeon {
     public int[] createPlayerPosition() {
         int playerPosition = RandomDigit.randomizer(1, matrix.length - 1);
         position = new Position(0, playerPosition);
-        this.matrix[playerPosition][0] = new Room(new Player(100, "test", new Position(0, playerPosition)));
+        this.player = new Player(100, "test", new Position(0, playerPosition));
+        this.matrix[playerPosition][0] = new Room(player);
         return new int[]{playerPosition, 0};
     }
-    public static void forward(){
-        position.setY(position.getY()+1);
+
+    public void forward() {
+        matrix[position.getY()][position.getX()] = null;
+        position.setY(position.getY() - 1);
+        matrix[position.getY()][position.getX()].setRoomInterface(player);
         System.out.println("Игрок переместился вперёд.");
     }
-    public static void back(){
-        position.setY(position.getY()-1);
+
+    public void back() {
+        matrix[position.getY()][position.getX()] = null;
+        position.setY(position.getY() + 1);
+        matrix[position.getY()][position.getX()].setRoomInterface(player);
         System.out.println("Игрок переместился назад.");
     }
-    public static void left(){
-        position.setY(position.getX()+1);
-        System.out.println("Игрок переместился влево.");
+
+    public void left() {
+        matrix[position.getY()][position.getX()] = null;
+        position.setX(position.getX() - 1);
+        matrix[position.getY()][position.getX()].setRoomInterface(player);
+        System.out.println("Игрок переместился влево");
     }
-    public static void right(){
-        position.setY(position.getX()-1);
+    public void right() {
+        matrix[position.getY()][position.getX()] = null;
+        position.setX(position.getX() + 1);
+        matrix[position.getY()][position.getX()].setRoomInterface(player);
         System.out.println("Игрок переместился вправо.");
     }
 

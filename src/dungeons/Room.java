@@ -22,6 +22,14 @@ public class Room {
         this.roomInterface = roomInterface;
     }
 
+    public RoomInterface getRoomInterface() {
+        return roomInterface;
+    }
+
+    public void setRoomInterface(RoomInterface roomInterface) {
+        this.roomInterface = roomInterface;
+    }
+
     @Override
     public String toString() {
         if (roomInterface instanceof Treasure) {

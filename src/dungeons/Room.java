@@ -1,5 +1,6 @@
 package dungeons;
 
+import heroes.Empty;
 import heroes.Monster;
 import heroes.Player;
 import random.RandomDigit;
@@ -38,6 +39,8 @@ public class Room {
         if (roomInterface instanceof Player) {
             return "\uD83E\uDDDD";
 
+        } else if (roomInterface instanceof Empty) {
+            return "e";
         } else {
             return "\uD83D\uDC7E";
         }

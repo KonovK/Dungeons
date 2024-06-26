@@ -1,5 +1,7 @@
 package dungeons;
 
+import enums.DirectionMovement;
+import heroes.Empty;
 import heroes.Player;
 import playerPosition.Position;
 import random.RandomDigit;
@@ -38,31 +40,61 @@ public class Dungeon {
         return new int[]{playerPosition, 0};
     }
 
+
     public void forward() {
-        matrix[position.getY()][position.getX()] = null;
-        position.setY(position.getY() - 1);
-        matrix[position.getY()][position.getX()].setRoomInterface(player);
-        System.out.println("Игрок переместился вперёд.");
+        move("Игрок переместился вперёд.", -1, DirectionMovement.VERTICAL);
     }
 
     public void back() {
-        matrix[position.getY()][position.getX()] = null;
-        position.setY(position.getY() + 1);
-        matrix[position.getY()][position.getX()].setRoomInterface(player);
-        System.out.println("Игрок переместился назад.");
+        move("Игрок переместился назад.", 1, DirectionMovement.VERTICAL);
     }
 
     public void left() {
-        matrix[position.getY()][position.getX()] = null;
-        position.setX(position.getX() - 1);
-        matrix[position.getY()][position.getX()].setRoomInterface(player);
-        System.out.println("Игрок переместился влево");
+        move("Игрок переместился влево.", -1, DirectionMovement.HORIZONTAL);
     }
+
     public void right() {
-        matrix[position.getY()][position.getX()] = null;
-        position.setX(position.getX() + 1);
+        move("Игрок переместился вправо.", 1, DirectionMovement.HORIZONTAL);
+    }
+
+    private void move(String desc, int offset, DirectionMovement dir) {
+        if (dir == DirectionMovement.VERTICAL) {
+            if ((position.getY() + offset) < 0 || (position.getY() + offset) >= matrix.length){
+                if ((position.getY() + offset) == matrix[0].length) {
+                    System.out.println("Вы достигли нижней грани.");
+                    return;
+                }
+                else {
+                    System.out.println("Вы достигли верхней грани.");
+                    return;
+                }
+            }
+            RoomInterface room = matrix[position.getY() + offset][position.getX()].getRoomInterface();
+            interaction(room);
+            matrix[position.getY()][position.getX()] = new Room(new Empty());
+            position.setY(position.getY() + offset);
+        } else if (dir == DirectionMovement.HORIZONTAL) {
+            if ((position.getX() + offset) < 0 || (position.getX() + offset) >= matrix[0].length){
+                if ((position.getX() + offset) == matrix.length) {
+                    System.out.println("Вы достигли правой грани.");
+                }
+                else {
+                    System.out.println("Вы достигли левой грани.");
+                }
+                return;
+            }
+            RoomInterface room = matrix[position.getY() + offset][position.getX()].getRoomInterface();
+            interaction(room);
+            matrix[position.getY()][position.getX()] = new Room(new Empty());
+            position.setX(position.getX() + offset);
+        }
         matrix[position.getY()][position.getX()].setRoomInterface(player);
-        System.out.println("Игрок переместился вправо.");
+        System.out.println(desc);
+
+    }
+
+    private void interaction(RoomInterface roomInterface) {
+        player.interaction(roomInterface);
     }
 
 }

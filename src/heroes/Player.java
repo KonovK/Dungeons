@@ -7,37 +7,52 @@ import treasure.Treasure;
 
 public class Player extends Unit implements RoomInterface {
 
-    private int health = 100;
+    private int health;
     private String bag;
     private Position position;
+    private int attack;
+    private int def;
 
-    public Player(int health, String bag, Position position) {
+    public Player(int health, String bag, Position position, int attack, int def) {
         this.health = health;
         this.bag = bag;
         this.position = position;
+        this.attack = attack;
+        this.def = def;
     }
 
     public void interaction(RoomInterface roomInterface){
         if (roomInterface instanceof Treasure treasure){
-            increasedLife();
+            this.health += treasure.getHeath();
+            this.attack += treasure.getAttack();
+            this.def += treasure.getDef();
         }
         if (roomInterface instanceof Empty empty){
             System.out.println("Вы тут были!");
         }
         if (roomInterface instanceof Monster monster){
             System.out.println("Вы наткнулись на монстра!");
+            this.health -= monster.getAttack();
+            this.health += monster.getDef();
         }
     }
-    public  void increasedLife(){
-        System.out.println("Вы нашли сокровища!");
-        int randomizerHelth = RandomDigit.randomizer(1, 30);
-        System.out.println("Вы вылечины на " + randomizerHelth + " HP.");
-        this.health += randomizerHelth;
-        System.out.println("Ваше здоровье " + health + " HP.");
+    public int getAttack() {
+        return attack;
     }
 
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public int getDef() {
+        return def;
+    }
+
+    public void setDef(int def) {
+        this.def = def;
+    }
     public void info(){
-        System.out.println(health);
+        System.out.println("Здоровье " + health + ", атака " + attack + ", защита " + def);
     }
 
     public int getHealth() {

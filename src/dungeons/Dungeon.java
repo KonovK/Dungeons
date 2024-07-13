@@ -31,6 +31,7 @@ public class Dungeon {
             System.out.println();
         }
         player.info();
+        System.out.println("Следующий ход.");
     }
 
     public int[] createPlayerPosition() {
@@ -43,26 +44,26 @@ public class Dungeon {
 
 
     public void forward() {
-        move("Игрок переместился вперёд.", -1, DirectionMovement.VERTICAL);
+        move(-1, DirectionMovement.VERTICAL);
     }
 
     public void back() {
-        move("Игрок переместился назад.", 1, DirectionMovement.VERTICAL);
+        move(1, DirectionMovement.VERTICAL);
     }
 
     public void left() {
-        move("Игрок переместился влево.", -1, DirectionMovement.HORIZONTAL);
+        move(-1, DirectionMovement.HORIZONTAL);
     }
 
     public void right() {
-        move("Игрок переместился вправо.", 1, DirectionMovement.HORIZONTAL);
+        move(1, DirectionMovement.HORIZONTAL);
     }
 
-    private void move(String desc, int offset, DirectionMovement dir) {
-        moveDependDirection(desc, offset, dir);
+    private void move(int offset, DirectionMovement dir) {
+        moveDependDirection(offset, dir);
     }
 
-    private void moveDependDirection(String desc, int offset, DirectionMovement dir) {
+    private void moveDependDirection(int offset, DirectionMovement dir) {
         int length = 0;
         int nextPosition = 0;
         if (dir == DirectionMovement.VERTICAL) {
@@ -82,7 +83,6 @@ public class Dungeon {
         matrix[position.getY()][position.getX()] = new Room(new Empty());
         goNextRoom(nextPosition, dir);
         matrix[position.getY()][position.getX()].setRoomInterface(player);
-        System.out.println(desc);
     }
 
     private RoomInterface getNextRoom(int nextPosition, DirectionMovement dir) {

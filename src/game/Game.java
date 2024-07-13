@@ -30,12 +30,16 @@ public class Game {
             String s = scanner.nextLine();
             System.out.println("Вы ввели " + s);
             if (s.equals("вперед")) {
+                System.out.println("Игрок переместился вперёд.");
                 dungeon.forward();
             } else if (s.equals("назад")) {
+                System.out.println("Игрок переместился назад.");
                 dungeon.back();
             } else if (s.equals("влево")) {
+                System.out.println("Игрок переместился влево.");
                 dungeon.left();
             } else if (s.equals("вправо")) {
+                System.out.println("Игрок переместился вправо.");
                 dungeon.right();
             }
             info();

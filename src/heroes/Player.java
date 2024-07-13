@@ -26,16 +26,49 @@ public class Player extends Unit implements RoomInterface {
             this.health += treasure.getHeath();
             this.attack += treasure.getAttack();
             this.def += treasure.getDef();
+            System.out.println("Вы нашли сокровища!");
         }
         if (roomInterface instanceof Empty empty){
             System.out.println("Вы тут были!");
         }
         if (roomInterface instanceof Monster monster){
             System.out.println("Вы наткнулись на монстра!");
-            this.health -= monster.getAttack();
-            this.health += monster.getDef();
+            monster.info();
+            interactionMonster(monster);
+        }
+        if (roomInterface instanceof EmptyRoom emptyRoom) {
+            System.out.println("Вы вошли в пустую комнату!");
         }
     }
+
+    private void interactionMonster(Monster monster) {
+        while (this.health > 0 && monster.getHealth() > 0) {
+            playerAttack(monster);
+            monsterAttack(monster);
+        }
+        if (this.health > 0) {
+            System.out.println("Игрок победил!");
+        } else if (monster.getHealth() > 0) {
+            System.out.println("Монстер победил!");
+        }
+    }
+
+    private void monsterAttack(Monster monster) {
+        int damage = monster.getAttack() - this.def;
+        if (damage <= 2) {
+            damage = 2;
+        }
+        this.health -= damage;
+    }
+
+    private void playerAttack(Monster monster) {
+        int damage = this.attack - monster.getDef();
+        if (damage <= 2) {
+            damage = 2;
+        }
+        monster.setHealth(monster.getHealth() - damage);
+    }
+
     public int getAttack() {
         return attack;
     }

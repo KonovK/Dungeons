@@ -7,15 +7,12 @@ public class Monster implements RoomInterface {
 
     private int def;
     private int attack;
+    private int health;
 
     public Monster() {
-        int randomizer = RandomDigit.randomizer(1, 2);
-        if (randomizer == 1){
-            this.def = RandomDigit.randomizer(1, 10);
-        } else if (randomizer == 2) {
-            this.attack = RandomDigit.randomizer(1, 10);
-        }
-
+        this.def = RandomDigit.randomizer(1, 5);
+        this.attack = RandomDigit.randomizer(5, 10);
+        this.health = RandomDigit.randomizer(30, 70);
     }
 
     public int getDef() {
@@ -32,6 +29,18 @@ public class Monster implements RoomInterface {
 
     public void setAttack(int attack) {
         this.attack = attack;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void info(){
+        System.out.println("Монстр: " + "здоровье " + health + ", атака " + attack + ", защита " + def);
     }
 
     @Override

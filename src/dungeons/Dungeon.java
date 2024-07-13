@@ -32,6 +32,7 @@ public class Dungeon {
         }
         player.info();
         System.out.println("Следующий ход.");
+
     }
 
     public int[] createPlayerPosition() {

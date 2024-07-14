@@ -77,6 +77,7 @@ public class Dungeon {
                 return;
         }
 
+
         RoomInterface room = getNextRoom(nextPosition, dir);
         interaction(room);
         matrix[position.getY()][position.getX()] = new Room(new Empty());

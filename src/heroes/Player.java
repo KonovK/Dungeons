@@ -85,7 +85,7 @@ public class Player extends Unit implements RoomInterface {
         this.def = def;
     }
     public void info(){
-        System.out.println("Здоровье " + health + ", атака " + attack + ", защита " + def);
+        System.out.println("Здоровье игрока " + health + ", атака " + attack + ", защита " + def);
     }
 
     public int getHealth() {

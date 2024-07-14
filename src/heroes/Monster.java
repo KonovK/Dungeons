@@ -40,7 +40,7 @@ public class Monster implements RoomInterface {
     }
 
     public void info(){
-        System.out.println("Монстр: " + "здоровье " + health + ", атака " + attack + ", защита " + def);
+        System.out.println("Здоровье монстра " + health + ", атака " + attack + ", защита " + def);
     }
 
     @Override

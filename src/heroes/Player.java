@@ -1,6 +1,7 @@
 package heroes;
 
 import dungeons.RoomInterface;
+import enums.Artifact;
 import playerPosition.Position;
 import random.RandomDigit;
 import treasure.Treasure;
@@ -8,12 +9,12 @@ import treasure.Treasure;
 public class Player extends Unit implements RoomInterface {
 
     private int health;
-    private String bag;
+    private Backpack bag;
     private Position position;
     private int attack;
     private int def;
 
-    public Player(int health, String bag, Position position, int attack, int def) {
+    public Player(int health, Backpack bag, Position position, int attack, int def) {
         this.health = health;
         this.bag = bag;
         this.position = position;
@@ -26,6 +27,11 @@ public class Player extends Unit implements RoomInterface {
             this.health += treasure.getHeath();
             this.attack += treasure.getAttack();
             this.def += treasure.getDef();
+            if (treasure.getItem() != null) {
+                bag.addArtifact((Artifact) treasure.getItem());
+                System.out.println("Вы нашли артефакт!");
+                interactionArtifacts();
+            }
             System.out.println("Вы нашли сокровища!");
         }
         if (roomInterface instanceof Empty empty){
@@ -38,6 +44,48 @@ public class Player extends Unit implements RoomInterface {
         }
         if (roomInterface instanceof EmptyRoom emptyRoom) {
             System.out.println("Вы вошли в пустую комнату!");
+        }
+    }
+
+    public void interactionArtifacts() {
+        if (getBag().getArtifacts().contains(Artifact.SWORD)) {
+            int randomizerSword = RandomDigit.randomizer(1, 2);
+            if (randomizerSword == 1) {
+                System.out.println("Вы нашли серебрянный меч!");
+                System.out.println("Атака увеличена на 5!");
+                this.attack += 5;
+            }
+            else {
+                System.out.println("Вы нашли золотой меч!");
+                System.out.println("Атака увеличена на 10!");
+                this.attack += 10;
+            }
+        }
+        if (getBag().getArtifacts().contains(Artifact.HELM)) {
+            int randomizerHelm = RandomDigit.randomizer(1, 2);
+            if (randomizerHelm == 1) {
+                System.out.println("Вы нашли серебрянный шлем!");
+                System.out.println("Защита увеличена на 5!");
+                this.def += 5;
+            }
+            else {
+                System.out.println("Вы нашли золотой шлем!");
+                System.out.println("Защита увеличена на 10!");
+                this.def += 10;
+            }
+        }
+        if (getBag().getArtifacts().contains(Artifact.ARMOR)) {
+            int randomizerArmor = RandomDigit.randomizer(1, 2);
+            if (randomizerArmor == 1) {
+                System.out.println("Вы нашли серебрянные доспехи!");
+                System.out.println("Защита увеличена на 5!");
+                this.def += 5;
+            }
+            else {
+                System.out.println("Вы нашли золотые доспехи!");
+                System.out.println("Защита увеличена на 10!");
+                this.def += 10;
+            }
         }
     }
 
@@ -92,7 +140,7 @@ public class Player extends Unit implements RoomInterface {
         return health;
     }
 
-    public String getBag() {
+    public Backpack getBag() {
         return bag;
     }
 
@@ -104,7 +152,7 @@ public class Player extends Unit implements RoomInterface {
         this.health = health;
     }
 
-    public void setBag(String bag) {
+    public void setBag(Backpack bag) {
         this.bag = bag;
     }
 

@@ -1,6 +1,7 @@
 package dungeons;
 
 import enums.DirectionMovement;
+import heroes.Backpack;
 import heroes.Empty;
 import heroes.Player;
 import playerPosition.Position;
@@ -31,12 +32,13 @@ public class Dungeon {
             System.out.println();
         }
         player.info();
+        System.out.println("Артефакты: " + player.getBag().getArtifacts());
     }
 
     public int[] createPlayerPosition() {
         int playerPosition = RandomDigit.randomizer(1, matrix.length - 1);
         position = new Position(0, playerPosition);
-        this.player = new Player(100, "test", new Position(0, playerPosition), 5, 5);
+        this.player = new Player(100, new Backpack(), new Position(0, playerPosition), 5, 5);
         this.matrix[playerPosition][0] = new Room(player);
         return new int[]{playerPosition, 0};
     }
@@ -76,8 +78,6 @@ public class Dungeon {
                 System.out.println("Вы достигли края.");
                 return;
         }
-
-
         RoomInterface room = getNextRoom(nextPosition, dir);
         interaction(room);
         matrix[position.getY()][position.getX()] = new Room(new Empty());

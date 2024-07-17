@@ -29,18 +29,23 @@ public class Game {
             System.out.println("Команды: вперед, назад, влево, вправо, состояние, помощь.");
             String s = scanner.nextLine();
             System.out.println("Вы ввели " + s);
-            if (s.equals("вперед")) {
-                System.out.println("Игрок переместился вперёд.");
-                dungeon.forward();
-            } else if (s.equals("назад")) {
-                System.out.println("Игрок переместился назад.");
-                dungeon.back();
-            } else if (s.equals("влево")) {
-                System.out.println("Игрок переместился влево.");
-                dungeon.left();
-            } else if (s.equals("вправо")) {
-                System.out.println("Игрок переместился вправо.");
-                dungeon.right();
+            switch (s) {
+                case "вперед" -> {
+                    System.out.println("Игрок переместился вперёд.");
+                    dungeon.forward();
+                }
+                case "назад" -> {
+                    System.out.println("Игрок переместился назад.");
+                    dungeon.back();
+                }
+                case "влево" -> {
+                    System.out.println("Игрок переместился влево.");
+                    dungeon.left();
+                }
+                case "вправо" -> {
+                    System.out.println("Игрок переместился вправо.");
+                    dungeon.right();
+                }
             }
             info();
         }

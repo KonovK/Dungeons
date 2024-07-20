@@ -1,5 +1,6 @@
 package heroes;
 
+import Interaction.Interaction;
 import dungeons.RoomInterface;
 import enums.Artifact;
 import playerPosition.Position;
@@ -29,8 +30,8 @@ public class Player extends Unit implements RoomInterface {
             this.def += treasure.getDef();
             if (treasure.getItem() != null) {
                 bag.addArtifact((Artifact) treasure.getItem());
-                System.out.println("Вы нашли артефакт!");
-                interactionArtifacts();
+                System.out.println("Вы нашли артефакт " + (Artifact)treasure.getItem() + " !");
+//                interactionArtifacts();
             }
             System.out.println("Вы нашли сокровища!");
         }
@@ -40,14 +41,35 @@ public class Player extends Unit implements RoomInterface {
         if (roomInterface instanceof Monster monster){
             System.out.println("Вы наткнулись на монстра!");
             monster.info();
-            interactionMonster(monster);
+            this.health = Interaction.interactionMonster(getPlayerWithArtifacts(), monster);
         }
         if (roomInterface instanceof EmptyRoom emptyRoom) {
             System.out.println("Вы вошли в пустую комнату!");
         }
     }
 
-    public void interactionArtifacts() {
+    public Player getPlayerWithArtifacts() {
+        int attack = this.attack;
+        int def = this.def;
+        if (getBag().getArtifacts().contains(Artifact.SWORD)) {
+            attack += 5;
+        } else if (getBag().getArtifacts().contains(Artifact.GOLD_SWORD)) {
+            attack += 10;
+        }
+        if (getBag().getArtifacts().contains(Artifact.HELM)) {
+            def += 5;
+        } else if (getBag().getArtifacts().contains(Artifact.GOLD_HELM)) {
+            def += 10;
+        }
+        if (getBag().getArtifacts().contains(Artifact.ARMOR)) {
+            def += 5;
+        }
+        else if (getBag().getArtifacts().contains(Artifact.GOLD_ARMOR)) {
+            def += 10;
+        }
+        return new Player(this.health, this.bag, this.position, attack, def);
+    }
+    private void interactionArtifacts() {
         if (getBag().getArtifacts().contains(Artifact.SWORD)) {
             int randomizerSword = RandomDigit.randomizer(1, 2);
             if (randomizerSword == 1) {
@@ -89,33 +111,6 @@ public class Player extends Unit implements RoomInterface {
         }
     }
 
-    private void interactionMonster(Monster monster) {
-        while (this.health > 0 && monster.getHealth() > 0) {
-            playerAttack(monster);
-            monsterAttack(monster);
-        }
-        if (this.health > 0) {
-            System.out.println("Игрок победил!");
-        } else if (monster.getHealth() > 0) {
-            System.out.println("Монстер победил!");
-        }
-    }
-
-    private void monsterAttack(Monster monster) {
-        int damage = monster.getAttack() - this.def;
-        if (damage <= 2) {
-            damage = 2;
-        }
-        this.health -= damage;
-    }
-
-    private void playerAttack(Monster monster) {
-        int damage = this.attack - monster.getDef();
-        if (damage <= 2) {
-            damage = 2;
-        }
-        monster.setHealth(monster.getHealth() - damage);
-    }
 
     public int getAttack() {
         return attack;

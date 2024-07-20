@@ -25,7 +25,7 @@ public class Treasure implements RoomInterface {
         generateArtifact();
     }
     private void generateArtifact() {
-        int itemRandomizer = RandomDigit.randomizer(1, 10);
+        int itemRandomizer = RandomDigit.randomizer(1, 1);
         if (itemRandomizer == 1) {
             Artifact[] artifacts = Artifact.values();
             int length = artifacts.length;

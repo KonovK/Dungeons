@@ -5,7 +5,10 @@ import heroes.Item;
 public enum Artifact implements Item {
 
     SWORD,
+    GOLD_SWORD,
     HELM,
-    ARMOR
+    GOLD_HELM,
+    ARMOR,
+    GOLD_ARMOR
 
 }
